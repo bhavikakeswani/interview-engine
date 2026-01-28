@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "skill": "Python",
+    "topic": "Basics",
+    "difficulty": "easy",
+    "question": "What is Python?",
+    "options": ["Snake", "Programming Language", "OS"],
+    "answer": "Programming Language"
+  },
+  {
+    "id": 2,
+    "skill": "Python",
+    "topic": "Loops",
+    "difficulty": "medium",
+    "question": "What is the output of range(3)?",
+    "options": ["0,1,2", "1,2,3", "0,1,2,3"],
+    "answer": "0,1,2"
+  }
+]

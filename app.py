@@ -62,11 +62,10 @@ def check_answer():
     if not question:
         return jsonify({"error": "Invalid question ID"}), 404
 
-    correct = question["answer"] == user_answer
+    correct = question["answer"].strip().lower() == user_answer.strip().lower()
 
     return jsonify({
-        "correct": correct,
-        "correct_answer": question["answer"]
+        "correct": correct
     })
 
 @app.route("/start-interview", methods=["POST"])

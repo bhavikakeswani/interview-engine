@@ -26,7 +26,13 @@ def get_questions():
     if difficulty:
         filtered = [q for q in filtered if q["difficulty"].lower() == difficulty.lower()]
 
-    return jsonify(filtered)
+    safe_questions = []
+    for q in filtered:
+        q_safe = q.copy()
+        q_safe.pop("answer")
+        safe_questions.append(q_safe)
+
+    return jsonify(safe_questions)
 
 @app.route("/question/random", methods=["GET"])
 def random_question():

@@ -57,6 +57,9 @@ def check_answer():
     question_id = data.get("id")
     user_answer = data.get("answer")
 
+    if not question_id or not user_answer:
+        return jsonify({"error": "id and answer are required"}), 400
+
     question = next((q for q in QUESTIONS if q["id"] == question_id), None)
 
     if not question:
@@ -64,9 +67,7 @@ def check_answer():
 
     correct = question["answer"].strip().lower() == user_answer.strip().lower()
 
-    return jsonify({
-        "correct": correct
-    })
+    return jsonify({"correct": correct})
 
 @app.route("/start-interview", methods=["POST"])
 def start_interview():
@@ -99,6 +100,9 @@ def interview_answer():
     session_id = data.get("session_id")
     user_answer = data.get("answer")
 
+    if not session_id or not user_answer:
+        return jsonify({"error": "session_id and answer are required"}), 400
+
     session = sessions.get(session_id)
     if not session:
         return jsonify({"error": "Invalid session"}), 404
@@ -112,11 +116,9 @@ def interview_answer():
 
     q = session["questions"][session["current"]]
 
-    if q["answer"].lower().strip() == user_answer.lower().strip():
+    correct = q["answer"].lower().strip() == user_answer.lower().strip()
+    if correct:
         session["score"] += 1
-        correct = True
-    else:
-        correct = False
 
     session["current"] += 1
     remaining = len(session["questions"]) - session["current"]
